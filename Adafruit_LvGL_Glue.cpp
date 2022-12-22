@@ -24,7 +24,7 @@ void TIMER_ISR(void) { Adafruit_ZeroTimer::timerHandler(TIMER_NUM); }
 // Timer compare match 0 callback -- invokes LittlevGL timekeeper.
 static void timerCallback0(void) { lv_tick_inc(lv_tick_interval_ms); }
 
-#elif defined(ESP32) // ------------------------------------------------
+#elif defined(ESP32) || defined(TEENSYDUINO)  // ------------------------------------------------
 
 static void lv_tick_handler(void) { lv_tick_inc(lv_tick_interval_ms); }
 
@@ -436,6 +436,10 @@ LvGLStatus Adafruit_LvGL_Glue::begin(Adafruit_SPITFT *tft, void *touch,
   TIMER_ID->TASKS_START = 1; // Start timer
 
   status = LVGL_OK;
+
+#elif defined(TEENSYDUINO)
+
+  intervalTimer.begin(lv_tick_handler, lv_tick_interval_ms * 1000);
 
 #endif // end timer setup --------------------------------------------------
   }

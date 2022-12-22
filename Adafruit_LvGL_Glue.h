@@ -52,6 +52,9 @@ private:
 #elif defined(ESP32)
   Ticker tick;
 #elif defined(NRF52_SERIES)
+
+#elif defined(TEENSYDUINO)
+  IntervalTimer intervalTimer;
 #endif
 };
 
