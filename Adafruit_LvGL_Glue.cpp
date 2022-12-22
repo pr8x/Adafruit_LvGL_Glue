@@ -24,7 +24,7 @@ void TIMER_ISR(void) { Adafruit_ZeroTimer::timerHandler(TIMER_NUM); }
 // Timer compare match 0 callback -- invokes LittlevGL timekeeper.
 static void timerCallback0(void) { lv_tick_inc(lv_tick_interval_ms); }
 
-#elif defined(ESP32) || defined(TEENSYDUINO)  // ------------------------------------------------
+#elif defined(ESP32)  // ------------------------------------------------
 
 static void lv_tick_handler(void) { lv_tick_inc(lv_tick_interval_ms); }
 
@@ -43,6 +43,15 @@ void TIMER_ISR(void) {
   }
   lv_tick_inc(lv_tick_interval_ms);
 }
+}
+
+#elif defined(TEENSYDUINO)
+
+static void lv_tick_handler(void) 
+{ 
+  noInterrupts();
+  lv_tick_inc(lv_tick_interval_ms); 
+  interrupts();
 }
 
 #endif
