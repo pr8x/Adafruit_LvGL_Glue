@@ -449,6 +449,7 @@ LvGLStatus Adafruit_LvGL_Glue::begin(Adafruit_SPITFT *tft, void *touch,
 #elif defined(TEENSYDUINO)
 
   intervalTimer.begin(lv_tick_handler, lv_tick_interval_ms * 1000);
+  status = LVGL_OK;
 
 #endif // end timer setup --------------------------------------------------
   }
